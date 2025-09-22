@@ -1,4 +1,11 @@
 # Air Quality Sensor Data Repository (AQ-SDR)
+If you are using this dataset for the Veli model, make sure to check the other repository for the model code and running at: [Veli](https://github.com/YahiDar/Veli).
+
+Also, please do cite our paper using:
+
+```
+
+```
 
 
 This repository holds the code used to pull data, organize, clean, and preprocess from the following sources:
@@ -22,7 +29,17 @@ insert figshare link here.
 
 At the end of this readme file, you will see a description of the dataset tools and some explanation.
 
-Here, we will explain how to prepare to use the data for ML models as we have done in our paper [Veli](https://github.com/YahiDar/Veli).
+The bash script will produce a dataset ready for running through the following directory tree:
+
+```
+
+
+```
+
+```
+
+
+```
 
 
 ## Preprocessing
