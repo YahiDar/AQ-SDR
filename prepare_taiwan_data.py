@@ -68,9 +68,9 @@ print("KEEP_DUMMY:", KEEP_DUMMY)
 
 print(f'Remove dummy folder is set to: {KEEP_DUMMY}')
 
-# Check TOTAL_ROOT
+# Check eu_data
 if not os.path.isdir(ROOT):
-    sys.stderr.write(f"Error: TOTAL_ROOT does not exist or is not a directory: {ROOT}\n")
+    sys.stderr.write(f"Error: eu_data does not exist or is not a directory: {ROOT}\n")
     sys.exit(1)
 
 

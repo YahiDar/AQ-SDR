@@ -40,7 +40,7 @@ def set_seed(seed):
 
 parser = argparse.ArgumentParser(description="Process directory and config arguments.")
 
-parser.add_argument("--total_root", required=True, help="Path to TOTAL_ROOT, where original data is from")
+parser.add_argument("--eu_data", required=True, help="Path to eu_data, where original data is from")
 parser.add_argument("--final_dir", required=True, help="Path to FINAL_DIR")
 parser.add_argument("--dummy_holder", default="/tmp/dummy_holder", required=False, help="Path to DUMMY_HOLDER")
 parser.add_argument("--keep_dummy", action="store_true", help="action = False. default is that it will delete it")
@@ -49,12 +49,12 @@ args = parser.parse_args()
 
 FINAL_DIR = args.final_dir
 DUMMY_HOLDER = args.dummy_holder
-TOTAL_ROOT = args.total_root
+eu_data = args.eu_data
 KEEP_DUMMY = args.keep_dummy
 
 print("FINAL_DIR:", FINAL_DIR)
 print("DUMMY_HOLDER:", DUMMY_HOLDER)
-print("TOTAL_ROOT:", TOTAL_ROOT)
+print("eu_data:", eu_data)
 print("keep_dummy:", KEEP_DUMMY)
 
 print(f'Remove dummy folder is set to: {KEEP_DUMMY}')
@@ -68,20 +68,20 @@ required_subdirs = [
     "sencom_hourly"
 ]
 
-# Check TOTAL_ROOT
-if not os.path.isdir(TOTAL_ROOT):
-    sys.stderr.write(f"Error: TOTAL_ROOT does not exist or is not a directory: {TOTAL_ROOT}\n")
+# Check eu_data
+if not os.path.isdir(eu_data):
+    sys.stderr.write(f"Error: eu_data does not exist or is not a directory: {eu_data}\n")
     sys.exit(1)
 
 # Check required subdirectories
 missing = []
 for subdir in required_subdirs:
-    path = os.path.join(TOTAL_ROOT, subdir)
+    path = os.path.join(eu_data, subdir)
     if not os.path.isdir(path):
         missing.append(subdir)
 
 if missing:
-    sys.stderr.write("Error: You cannot start without TOTAL_ROOT having required data. Make sure the naming is identical as well. TOTAL_ROOT is missing required subdirectories:\n")
+    sys.stderr.write("Error: You cannot start without eu_data having required data. Make sure the naming is identical as well. eu_data is missing required subdirectories:\n")
     for m in missing:
         sys.stderr.write(f"  - {m}\n")
     sys.exit(1)
@@ -100,7 +100,7 @@ for path in [FINAL_DIR, DUMMY_HOLDER]:
 #Example of the paths I used:
 # FINAL_DIR = '/home/dum/preprocessed_final'
 # DUMMY_HOLDER = '/home/dum/dummy_trial'
-# TOTAL_ROOT = '/home/dum/total_root/'
+# eu_data = '/home/dum/eu_data/'
 # KEEP_DUMMY = True
 
 # Variable mapping dictionary
@@ -137,7 +137,7 @@ LCS_BULK_PATH = f'{FINAL_DIR}/full_dataset/prepared_lcs_bulk'
 TEST_SET_PATH = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered'
 
 
-OFFICIAL_STATIONS_ROOT = f'{TOTAL_ROOT}/luchtmeetnet_csvs'
+OFFICIAL_STATIONS_ROOT = f'{eu_data}/luchtmeetnet_csvs'
 
 LUCHTMEETNET_CSV_METADATA_PATH = f'{OFFICIAL_STATIONS_ROOT}/luchtmeetnet_meetlocaties.csv' #https://data.rivm.nl/data/luchtmeetnet/Metadata/luchtmeetnet_meetlocaties.csv
 # Paths
@@ -158,24 +158,24 @@ root_sencom_id = f'{DUMMY_HOLDER}/sencom_id'
 sencom_root = f'{DUMMY_HOLDER}/sencom_root'
 sencom_final_root = f'{DUMMY_HOLDER}/sencom_final_root'
 sencom_dbscan_root = f'{DUMMY_HOLDER}/sencom_final_root_dbscan'
-root_sencom_hourly = f'{TOTAL_ROOT}/sencom_hourly'
+root_sencom_hourly = f'{eu_data}/sencom_hourly'
 
 
 # new_luchtmeetnet_csvs_root = f'{DUMMY_HOLDER}/luchtmeetnet_csvs_dbscan'
-# luchtmeetnet_csvs_root = f'{TOTAL_ROOT}/luchtmeetnet_csvs'
+# luchtmeetnet_csvs_root = f'{eu_data}/luchtmeetnet_csvs'
 
 lucht_root_dbscan = f'{DUMMY_HOLDER}/lucht_root_dbscan'
-lucht_root = f'{TOTAL_ROOT}/lucht_root'
+lucht_root = f'{eu_data}/lucht_root'
 
-crowd_stations_root = f'{TOTAL_ROOT}/crowd_stations_root'
+crowd_stations_root = f'{eu_data}/crowd_stations_root'
 crowd_stations_dbscan_root = f'{DUMMY_HOLDER}/crowd_stations_root_dbscan'
 
 knmi_dest_dir = os.path.join(DUMMY_HOLDER, "KNMI")
-knmi_root = f'{TOTAL_ROOT}/KNMI'
+knmi_root = f'{eu_data}/KNMI'
 
 
-crowd_stations_root = f'{TOTAL_ROOT}/crowd_stations_root'
-# new_crowd_stations_root = f'{TOTAL_ROOT}/crowd_stations_root_dbscan'
+crowd_stations_root = f'{eu_data}/crowd_stations_root'
+# new_crowd_stations_root = f'{eu_data}/crowd_stations_root_dbscan'
 YEAR_HOURS = 8760
 
 make_endofhour = True
