@@ -18,8 +18,8 @@ from shapely.geometry import Point
 
 
 from utils.geoutils import *
-import metadata_creation 
-import create_lcs_only
+from preprocessing_scripts import metadata_creation 
+from preprocessing_scripts import create_lcs_only
 
 
 

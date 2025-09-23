@@ -2,7 +2,6 @@ import os
 import json
 from glob import glob
 import shutil
-from utils.geoutils import *
 import zipfile
 import pandas as pd
 from pathlib import Path
@@ -19,12 +18,13 @@ import warnings
 warnings.filterwarnings("ignore")
 
 import warnings
-
-
-
 import time
-import create_lcs_only
-import metadata_creation_taiwan
+
+
+from utils.geoutils import *
+from preprocessing_scripts import metadata_creation_taiwan 
+from preprocessing_scripts import create_lcs_only
+
 
 from math import radians, cos, sin, asin, sqrt
 
