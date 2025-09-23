@@ -11,7 +11,7 @@ echo "=== Starting data preparation run: $(date) ===" | tee -a "$LOGFILE"
 # First script
 echo ">>> Running prepare_all_data.py" | tee -a "$LOGFILE"
 python -u prepare_all_data.py \
-  --eu_data "/home/yahia/eu_data" \
+  --eu_data "/home/yahia/all_data_backup/EU_data" \
   --final_dir "/home/yahia/final_dataset_replication2" \
   --dummy_holder "/home/ssda/dummy_holder"  >> "$LOGFILE" 2>&1
 STATUS1=$?
