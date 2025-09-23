@@ -41,7 +41,6 @@ The bash script will produce a dataset ready for running through the following d
 
 ```
 
-## Environment Setup
 
 # Environment Setup
 
@@ -87,18 +86,9 @@ conda activate veli
 pip install -r requirements.txt
 ```
 
-## Runing the Bash Script
-
-
 ## Preprocessing
 
 To abide by the licensing provided by each data source, we provide the raw data through the figshare link posted above. 
-
-I added a requirements.txt file that captures the libraries, not ALL of them are required, this is just the latest stage of the environment.
-
-We provide a collection of Python scripts that does all required preprocessing for this dataset. You only need to run the ```run_data_preperation.sh``` shell file to run all these scripts.
-
-The script will take a long time, upwards of 10 hours to prepare ALL the data. you will need at least 32 GB of RAM and a total of 75 GB of storage.
 
 Due to the licesning, we cannot publish the processed data. 
 These scripts do:
@@ -110,19 +100,54 @@ These scripts do:
 - Creates the dataloaders required for the Veli model
 
 
+### Running the Bash Script:
+
+We provide a collection of Python scripts that does all required preprocessing for this dataset. You only need to run the ```run_data_preperation.sh``` shell file to run all these scripts.
+
+The script will take a long time, upwards of 10 hours to prepare ALL the data. you will need at least 32 GB of RAM and a total of 75 GB of storage.
+
+The bash scripts run the two python files `prepare_all_data.py` which prepares the data for the EU region (in-distribution), and `prepare_taiwan_data.py` which prepares the data for the Taiwanese region (out-of-distribution).
+The python scripts are modular but I set the variables internally. Feel free to change them and play with them as you wish. I will however not be addressing issues in regards to parameters that I have not supported :)!
+
+It will create a log file in this directory called `run_data_preperation.log`.
+
+These are sample arguments for the python scripts:
+
+### EU data
 
 
+```bash
+python -u prepare_all_data.py  --eu_data "/path/to/eu_data"  --final_dir "/path/to/final/data" --dummy_holder "/path/to/dummy_holder" 
+  
+```
+The path to eu_data should contain the following directories:
 
-The python scripts are split into:
+```
+required_subdirs = [
+    "crowd_stations_root",
+    "KNMI",
+    "luchtmeetnet_csvs",
+    "lucht_root",
+    "sencom_hourly"
+]
+```
 
-- Downloading and pulling
-- Reorganizing (if required)
-- Preprocessing (dbscan and outlier removal)
+This will automatically delete the 'dummy_holder' directory after you are done since it is not needed. If you wish to observe the whole process of preprocessing, feel free to activate the argument `--keep_dummy` which will not delete them. NOTE: this requires an additional 100GB of storage.
 
+### Taiwan data
+```bash
+python -u prepare_taiwan_data.py --operation_root "/path/to/taiwan_raw/"
+```
+The path to taiwan data should contain the following directories:
 
+```
+required_subdirs = [
+    "downloaded_ref",
+    "downloaded_lcs"
+]
+```
 
-
-
+Similar to EU data. Additionally, you can activiate the argument `--keep_dummy` to keep the dummy folders.
 
 ## utils
 
