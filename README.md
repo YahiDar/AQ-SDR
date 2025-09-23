@@ -29,7 +29,7 @@ insert figshare link here.
 
 At the end of this readme file, you will see a description of the dataset tools and some explanation.
 
-The bash script will produce a dataset ready for running through the following directory tree:
+The bash script will produce a dataset ready for running through the following directory trees:
 
 ```
 
@@ -40,6 +40,54 @@ The bash script will produce a dataset ready for running through the following d
 
 
 ```
+
+## Environment Setup
+
+# Environment Setup
+
+All packages and dependencies used are available via two options:
+- `requirements.txt`
+- `pyproject.toml` (Poetry)
+
+This guide assumes you are using a bash-based tool (linux/mac). These are the exact same instructions and packaging files as the ones in the [Veli](https://github.com/YahiDar/Veli) repository.
+You can install all necessary packages **EXACTLY** following our work using the following commands:
+
+
+
+## 1. Using Python Virtual Environment
+
+### a) With `requirements.txt`
+```bash
+# Create and activate a virtual environment
+python3 -m venv veli
+source veli/bin/activate   # On Windows: veli\Scripts\activate
+pip install -r requirements.txt
+```
+
+### b) With `poetry.toml`
+Install poetry if not installed (feel free to create a virtual environment beforehand)
+```bash
+pip install poetry
+```
+
+Create and activate the virtual environment + install deps. Also activate the shell.
+```bash
+poetry install
+
+poetry shell
+```
+
+### c) Using Conda
+
+```bash
+conda create -n veli python=3.10
+
+conda activate veli
+
+pip install -r requirements.txt
+```
+
+## Runing the Bash Script
 
 
 ## Preprocessing
