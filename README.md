@@ -23,21 +23,41 @@ Luchtmeetnet API is the one available to pull for the public. The verified versi
 
 We also provide a large chunk of the raw data provided through the following link:
 
-```
-insert figshare link here.
-```
+[Download the dataset from figshare](https://figshare.com/s/3d76b6c57ed6913bb8fe)
 
 At the end of this readme file, you will see a description of the dataset tools and some explanation.
 
 The bash script will produce a dataset ready for running through the following directory trees:
 
-```
-
-
-```
+EU Data:
 
 ```
+final_dir_eudata
+├── crowd_stations_root_dbscan
+├── data
+├── KNMI
+├── luchtmeetnet_csvs
+├── luchtmeetnet_csvs_dbscan
+├── lucht_root_dbscan
+├── metadata
+├── sencom_final_root_dbscan
+└── final_dataset
+   ├── prepared_lcs_bulk
+   └── pre_prepared_datasets_unfiltered
 
+
+```
+Taiwan Data:
+```
+final_dir_ood
+├── downloaded_lcs
+├── downloaded_ref
+├── lcs_data_dbscan
+├── metadata
+├── ref_data_dbscan
+└── final_dataset
+    ├── ood_data_bulk
+    └── prepared_ood_datasets
 
 ```
 

@@ -12,7 +12,7 @@ echo "=== Starting data preparation run: $(date) ===" | tee -a "$LOGFILE"
 echo ">>> Running prepare_all_data.py" | tee -a "$LOGFILE"
 python -u prepare_all_data.py \
   --eu_data "/home/yahia/all_data_backup/EU_data" \
-  --final_dir "/home/yahia/final_dataset_replication2" \
+  --final_dir "/home/yahia/final_dir_eudata" \
   --dummy_holder "/home/ssda/dummy_holder"  >> "$LOGFILE" 2>&1
 STATUS1=$?
 
@@ -25,7 +25,7 @@ fi
 # Second script (runs regardless of first’s status)
 echo ">>> Running prepare_taiwan_data.py" | tee -a "$LOGFILE"
 python -u prepare_taiwan_data.py \
-  --operation_root "/home/yahia/ood_data_raw_lcs2/"  >> "$LOGFILE" 2>&1
+  --operation_root "/home/yahia/final_dir_ood/"  >> "$LOGFILE" 2>&1
 STATUS2=$?
 
 if [ $STATUS2 -eq 0 ]; then

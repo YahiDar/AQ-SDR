@@ -115,9 +115,9 @@ data_unsampled_dir = f'{REFERENCE_DATA_ROOT}/unsampled_data/'
 data_final_dir = f'{REFERENCE_DATA_ROOT}/data_final/'
 
 # Configuration
-bulk_dir = f'{OG_ROOT}/ood_data_bulk/'
+bulk_dir = f'{OG_ROOT}/final_dataset/ood_data_bulk/'
 ref_dir = f'{OG_ROOT}/ref_data_dbscan/'
-out_dir = f'{OG_ROOT}/prepared_ood_datasets/'
+out_dir = f'{OG_ROOT}/final_dataset/prepared_ood_datasets/'
 threshold_km = 5.0  # distance threshold in kilometers
 BATCH_SIZE = 1440
 THRESHOLD_HOURS = 5256.0
@@ -696,8 +696,8 @@ metadata_creation_taiwan.group_stations_by_grid(FULL_METADATA, FULL_GRIDS, 5000,
 STATIONS_WITHIN_GRIDS = load_json_file(f'{OG_ROOT}/metadata/stations_within_grids/stations_within_grids_5000.json')
 
 
-lcs_bulk_store = f'{OG_ROOT}/ood_data_bulk' #lcs stations 
-# lcs_bulk_store = '/home/yahia/ood_data_path2/ood_data_bulk'
+lcs_bulk_store = f'{OG_ROOT}/final_dataset/ood_data_bulk' #lcs stations 
+# lcs_bulk_store = '/home/yahia/ood_data_path2/final_dataset/ood_data_bulk'
 grid_coords = FULL_GRIDS['Taiwan']
 dum_index =[]
 cols_lim=10
@@ -1158,7 +1158,7 @@ def prepare_datasets():
 prepare_datasets()
 
 
-if KEEP_DUMMY:
+if not KEEP_DUMMY:
 
     paths_to_delete = [RAW_ROOT, UNSAMPLED_ROOT, SAMPLED_ROOT, DEST_ROOT,REFERENCE_DATA_ROOT]
 

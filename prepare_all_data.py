@@ -133,8 +133,8 @@ create_lcs_only.ROOT = f'{FINAL_DIR}/data'
 FULL_METADATA_PATH = f'{FINAL_DIR}/metadata/full_metadata.json'
 FULL_GRIDS_PATH = f'{FINAL_DIR}/metadata/grids/gridded_5km.json'
 STATIONS_WITHIN_GRIDS_PATH = f'{FINAL_DIR}/metadata/stations_within_grids/stations_within_grids_5000.json'
-LCS_BULK_PATH = f'{FINAL_DIR}/full_dataset/prepared_lcs_bulk'
-TEST_SET_PATH = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered'
+LCS_BULK_PATH = f'{FINAL_DIR}/final_dataset/prepared_lcs_bulk'
+TEST_SET_PATH = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered'
 
 
 OFFICIAL_STATIONS_ROOT = f'{eu_data}/luchtmeetnet_csvs'
@@ -1386,7 +1386,7 @@ print("Metadata folder created:", metadata_dir)
 
 os.makedirs(f'{FINAL_DIR}/metadata/grids',exist_ok=True)
 os.makedirs(f'{FINAL_DIR}/metadata/stations_within_grids',exist_ok=True)
-os.makedirs(f'{FINAL_DIR}/full_dataset',exist_ok=True)
+os.makedirs(f'{FINAL_DIR}/final_dataset',exist_ok=True)
 os.makedirs(LCS_BULK_PATH,exist_ok=True)
 os.makedirs(TEST_SET_PATH,exist_ok=True)
 metadata_creation.one_time_full_metadata(output = FULL_METADATA_PATH)
@@ -1400,7 +1400,7 @@ STATIONS_WITHIN_GRIDS = load_json_file(STATIONS_WITHIN_GRIDS_PATH)
 implemented_cities = ['rotterdam', 'utrecht', 'amsterdam', 'groningen', 'hague', 'ijmuiden', 'nijmegen']
 premade_datasets_path = TEST_SET_PATH
 lcs_bulk_store = LCS_BULK_PATH
-# premade_filtered_datasets_path = '/home/yahia/full_dataset/pre_prepared datasets_filtered'
+# premade_filtered_datasets_path = '/home/yahia/final_dataset/pre_prepared datasets_filtered'
 
 
 grid_coords = FULL_GRIDS['Netherlands']
@@ -1485,32 +1485,32 @@ The following part is hard coded - do not change anything please :).
 
 lat_utrecht = 52.082
 lon_utrecht = 5.108
-utrecht_path_lcs = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/utrecht_{lon_utrecht}_{lat_utrecht}_lcs.csv'
-utrecht_path_reference = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/utrecht_{lon_utrecht}_{lat_utrecht}_ref.csv'
+utrecht_path_lcs = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/utrecht_{lon_utrecht}_{lat_utrecht}_lcs.csv'
+utrecht_path_reference = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/utrecht_{lon_utrecht}_{lat_utrecht}_ref.csv'
 lat_rotterdam = 51.921
 lon_rotterdam = 4.463
-rotterdam_path_lcs = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/rotterdam_{lon_rotterdam}_{lat_rotterdam}_lcs.csv'
-rotterdam_path_reference = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/rotterdam_{lon_rotterdam}_{lat_rotterdam}_ref.csv'
+rotterdam_path_lcs = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/rotterdam_{lon_rotterdam}_{lat_rotterdam}_lcs.csv'
+rotterdam_path_reference = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/rotterdam_{lon_rotterdam}_{lat_rotterdam}_ref.csv'
 lat_ijmuiden = 52.46571257006848
 lon_ijmuiden = 4.624085111798515
-ijmuiden_path_lcs = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/ijmuiden_{lon_ijmuiden}_{lat_ijmuiden}_lcs.csv'
-ijmuiden_path_reference = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/ijmuiden_{lon_ijmuiden}_{lat_ijmuiden}_ref.csv'
+ijmuiden_path_lcs = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/ijmuiden_{lon_ijmuiden}_{lat_ijmuiden}_lcs.csv'
+ijmuiden_path_reference = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/ijmuiden_{lon_ijmuiden}_{lat_ijmuiden}_ref.csv'
 lat_hague = 52.064831455904184
 lon_hague = 4.347378645577175
-hague_path_lcs = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/hague_{lon_hague}_{lat_hague}_lcs.csv'
-hague_path_reference = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/hague_{lon_hague}_{lat_hague}_ref.csv'
+hague_path_lcs = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/hague_{lon_hague}_{lat_hague}_lcs.csv'
+hague_path_reference = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/hague_{lon_hague}_{lat_hague}_ref.csv'
 lat_nijmegen = 51.84182535853894
 lon_nijmegen = 5.85738536473926
-nijmegen_path_lcs = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/nijmegen_{lon_nijmegen}_{lat_nijmegen}_lcs.csv'
-nijmegen_path_reference = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/nijmegen_{lon_nijmegen}_{lat_nijmegen}_ref.csv'
+nijmegen_path_lcs = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/nijmegen_{lon_nijmegen}_{lat_nijmegen}_lcs.csv'
+nijmegen_path_reference = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/nijmegen_{lon_nijmegen}_{lat_nijmegen}_ref.csv'
 lat_groningen = 53.2151410086018
 lon_groningen = 6.568574391543857
-groningen_path_lcs = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/groningen_{lon_groningen}_{lat_groningen}_lcs.csv'
-groningen_path_reference = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/groningen_{lon_groningen}_{lat_groningen}_ref.csv'
+groningen_path_lcs = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/groningen_{lon_groningen}_{lat_groningen}_lcs.csv'
+groningen_path_reference = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/groningen_{lon_groningen}_{lat_groningen}_ref.csv'
 lat_amsterdam= 52.36888246467895
 lon_amsterdam = 4.890337958798472
-amsterdam_path_lcs = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/amsterdam_{lon_amsterdam}_{lat_amsterdam}_lcs.csv'
-amsterdam_path_reference = f'{FINAL_DIR}/full_dataset/pre_prepared_datasets_unfiltered/amsterdam_{lon_amsterdam}_{lat_amsterdam}_ref.csv'
+amsterdam_path_lcs = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/amsterdam_{lon_amsterdam}_{lat_amsterdam}_lcs.csv'
+amsterdam_path_reference = f'{FINAL_DIR}/final_dataset/pre_prepared_datasets_unfiltered/amsterdam_{lon_amsterdam}_{lat_amsterdam}_ref.csv'
 
 
 #AMSTERDAM
