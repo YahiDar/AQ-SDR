@@ -169,6 +169,111 @@ required_subdirs = [
 
 Similar to EU data. Additionally, you can activiate the argument `--keep_dummy` to keep the dummy folders.
 
+## Dealing with Null/Missing values:
+
+As expected in any IoT based system, there are a lot of missing/null values due to a plethora of reasons (connection issues, misreadings ... etc). The following is a chart of how these data were handled at every case. Training/testing refers to the process in the modeling in our model, [Veli](https://github.com/YahiDar/Veli).
+
+**Definitions**
+
+**LCS: Low-cost sensor**
+
+**Ref: Reference (high cost accurate sensors)**
+
+**Focus variable: PM2.5**
+
+
+
+**1- Pulling and data requests**
+
+- Metadata:
+
+Fixed format of json keys, check if they are there, whatever is missing replace with -999 and later replaced with Null
+- Sensor streams:
+
+Pull whatever is present.
+If the data is not hourly, downsample it by the hour (average)
+If all components are empty for this hour, the whole time slot is dropped 
+If at least one component is present, keep it and add ‘NaN’ to the rest.
+
+**2- Preprocessing**
+
+* Creating the stream files
+
+- Metadata:
+    - Drop any stream that has no geolocation
+    - Specific to SamenMeten: If a stream has different geolocations - it was probably moved and redeployed => segment the data into different locations
+
+- Sensor streams:
+    - If a reading is outside of predefined ranges (sample below), they are replaced with null
+    - To avoid erratic sensor spikes, a very soft DBSCAN is applied (if values suddenly increase or decrease by a large margin too quickly then it is discarded)
+    - After all filtering, If more than 35% of year hours (0.35*8760) is missing, the whole year is dropped (data is still available, just not used in the final model)
+
+* Create the model subset
+
+The model subset is only in the Netherlands and Taiwan, and looked at collection of 10 sensors in a 5km radius. The filtering is done as follows:
+
+- Find all locations that have at least 10 sensors that has at least 1 year of LCS data (100 in NL, 50~ in Taiwan)
+- Pre-define locations that have also Ref stations that can be used for verifying (7 in NL, 12~ in Taiwan)
+- It is possible that a location has more than 10 sensors and 1 year of data, in which case we choose the 10 sensors that have highest alignment in time (basically most amount of data possible per region). Per time sample, there must be at least 5 sensors active. (so maximum allowed is 5 NA’s at any time).
+- For reference data, the requirement is at least one available reading (assumption here is that they are all accurate reference stations so one is enough).
+
+The result is 100 files (locations, files are labeled by name) for NL, each has 10 sensors with at least 1 year of data (with at least 65% hourly coverage).
+
+
+**3- Training**
+
+- Since there are up to 5 sensors per hour that have NA, they are replaced with a mask of an impossible value (changable, but we set it to 0. We experimented with -1, -999 …, had no effect).
+- We also have a binary mask accompanying every slice in time, 0 for NA, 1 for present.
+- Every slice of time is a tensor [B,2,10] instead of [B,1,10], where B is batch size.
+
+**4- Testing**
+
+- The ‘infer_to_dataframe’ function generates predictions as dataframe. The predictions are generated for every sensor, INCLUDING the NA one. However, these reading are ‘invalid’, so the binary mask is an indicator to discard them. You are welcome to fiddle with them and do analysis on them :)
+- The errors are calculated ONLY for the non-NAN values in both the reference and LCS arrays (i.e. only when there are available readings for both). 
+- This is an experimental thing, but we also have a fill_hour_rows argument that tells the model to bring back the hours that were dropped because all sensors are NA. This will generate predictions based on its location in time from zero information. Again, we do not claim that this works, but you are welcome to experiment with this.
+
+
+Ranges of feasibility:
+``` 
+RANGES = {
+    'PM10':(-50,1000),
+    'PM2.5':(-50,1000),
+    'pm10':(-50,1000),
+    'Ox': (-70,500),
+    'ZWR': (0,400),
+    'PM10':(-50,1000),
+    'pres': (900,1300),
+    'no2': (0,750), 
+    'pm10_kal':(-50,1000),
+    'BC': (-5,40),
+    'pm25':(-50,1000),
+    'CO': (-500,20000),
+    'NOx':(-50, 2000),
+    'NO':(-20,2000),
+    'O3':(-30,800),
+    'H2S':(-10,40),
+    'SO2':(-30,1500),
+    'NH3':(-20,1000),
+    'NO2':(-200,1000),
+    'FN':(-10,100),
+    'BCWB':(-10,100),
+    'C10H8':(-5,50),
+    'C6H6':(-5,50),
+    'C7H8':(-5,50),
+    'C8H10':(-5,50),
+    'rh':(-2,105),
+    'pm25_kal':(-50,1000),
+    'temp':(-50,70),
+    'P0':(-50,1000),
+    'P1':(-50,1000),
+    'P2':(-50,1000),
+    'humidity':(-1,105),
+    'pressure':(90000,130000),
+    'temperature':(-50,70)
+}
+```
+
+
 ## utils
 
 General files to support the main scripts.
