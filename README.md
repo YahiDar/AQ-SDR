@@ -156,7 +156,7 @@ This will automatically delete the 'dummy_holder' directory after you are done s
 
 ### Taiwan data
 ```bash
-python -u prepare_taiwan_data.py --operation_root "/path/to/taiwan_raw/"
+python -u prepare_taiwan_data.py --operation_root "/path/to/taiwan_raw_downloaded/" --final_root "/path/to/final_dir_ood" 
 ```
 The path to taiwan data should contain the following directories:
 

@@ -53,39 +53,42 @@ def set_seed(seed):
 # Paths
 parser = argparse.ArgumentParser(description="Process directory and config arguments.")
 
-parser.add_argument("--operation_root", required=True, help="Path to REPO_ROOT, where original data is from")
+parser.add_argument("--operation_root", required=True, help="Path where original data is at")
+parser.add_argument("--final_root", required=True, help="Path to final_root, where original data is from")
 parser.add_argument("--keep_dummy", action="store_true", help="action = False. default is that it will delete it")
 
 args = parser.parse_args()
 
 ROOT = args.operation_root
+FINAL_ROOT = args.final_root
 KEEP_DUMMY = args.keep_dummy
 CHUNKSIZE = 1e15
 # Note: if you have a lot of ram (> 64 gb), feel free to use the function #create_unsampled() instead of create_unsampled_memorysave. it should be faster.
 
 print("Operation root:", ROOT)
+print("Final root:", FINAL_ROOT)
 print("KEEP_DUMMY:", KEEP_DUMMY)
 
 print(f'Remove dummy folder is set to: {KEEP_DUMMY}')
 
-# Check eu_data
+# Check root
 if not os.path.isdir(ROOT):
-    sys.stderr.write(f"Error: eu_data does not exist or is not a directory: {ROOT}\n")
+    sys.stderr.write(f"Error: root does not exist or is not a directory: {ROOT}\n")
     sys.exit(1)
 
-
-PROCESSED_ROOT = f'{ROOT}/lcs_data_dbscan'
+os.makedirs(FINAL_ROOT,exist_ok=True)
+PROCESSED_ROOT = f'{FINAL_ROOT}/lcs_data_dbscan'
 REPO_ROOT = f'{ROOT}/downloaded_lcs'
-RAW_ROOT = f'{ROOT}/raw_data'
-UNSAMPLED_ROOT = f'{ROOT}/unsampled_data'
-SAMPLED_ROOT = f'{ROOT}/ood_data_sampled'
-DEST_ROOT = f'{ROOT}/data_final'
+RAW_ROOT = f'{FINAL_ROOT}/raw_data'
+UNSAMPLED_ROOT = f'{FINAL_ROOT}/unsampled_data'
+SAMPLED_ROOT = f'{FINAL_ROOT}/ood_data_sampled'
+DEST_ROOT = f'{FINAL_ROOT}/data_final'
 
 
 
 
 
-OG_ROOT = ROOT
+OG_ROOT = FINAL_ROOT
 FULL_METADATA_PATH = f'{OG_ROOT}/metadata/full_metadata.json'
 FULL_GRIDS_PATH = f'{OG_ROOT}/metadata/gridded_5km.json'
 VAL_ID = 'VAL_PRE'
@@ -124,6 +127,12 @@ THRESHOLD_HOURS = 5256.0
 processed_root = f'{OG_ROOT}/ref_data_dbscan/'
 
 
+
+gov_data_list = [
+    f'{ROOT}/downloaded_ref/MOENV_OD_2020.zip',
+    f'{ROOT}/downloaded_ref/MOENV_OD_2021.zip',
+    f'{ROOT}/downloaded_ref/MOENV_OD_2022.zip'
+]
 
 
 
@@ -822,12 +831,6 @@ for idx, coords in enumerate(final_coords):
     write_csv_file(store_path,full_lcs_filter)
     time.sleep(1)
 
-
-gov_data_list = [
-    f'{OG_ROOT}/downloaded_ref/MOENV_OD_2020.zip',
-    f'{OG_ROOT}/downloaded_ref/MOENV_OD_2021.zip',
-    f'{OG_ROOT}/downloaded_ref/MOENV_OD_2022.zip'
-]
 # gov_data_list = [
 #     f'{OG_ROOT}/MOENV_OD_2021.zip',
 #     f'{OG_ROOT}/MOENV_OD_2022.zip'
@@ -837,7 +840,7 @@ for gov_data in gov_data_list:
     outer_zip   = Path(gov_data)
     target_dir  = Path(f'{REFERENCE_DATA_ROOT}/raw_data')
     target_dir.mkdir(parents=True, exist_ok=True)
-    if gov_data == f'{OG_ROOT}/downloaded_ref/MOENV_OD_2020.zip':
+    if gov_data == f'{ROOT}/downloaded_ref/MOENV_OD_2020.zip':
         with zipfile.ZipFile(gov_data, "r") as zf:
             for csv_name in zf.namelist():
                 out_path = target_dir / Path(csv_name).name

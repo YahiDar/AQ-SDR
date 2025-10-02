@@ -25,7 +25,8 @@ fi
 # Second script (runs regardless of first’s status)
 echo ">>> Running prepare_taiwan_data.py" | tee -a "$LOGFILE"
 python -u prepare_taiwan_data.py \
-  --operation_root "/home/yahia/final_dir_ood/"  >> "$LOGFILE" 2>&1
+  --operation_root "/home/yahia/all_data_backup/out_of_distribution_downloaded" \
+  --final_root "/home/yahia/final_dir_ood"  >> "$LOGFILE" 2>&1
 STATUS2=$?
 
 if [ $STATUS2 -eq 0 ]; then
