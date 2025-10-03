@@ -4,7 +4,15 @@ If you are using this dataset for the Veli model, make sure to check the other r
 Also, please do cite our paper using:
 
 ```
-
+@misc{Yahia2025Veli,
+      title={Veli: Unsupervised Method and Unified Benchmark for Low-Cost Air Quality Sensor Correction}, 
+      author={Yahia Dalbah and Marcel Worring and Yen-Chia Hsu},
+      year={2025},
+      eprint={2508.02724},
+      archivePrefix={arXiv},
+      primaryClass={eess.SP},
+      url={https://arxiv.org/abs/2508.02724}, 
+}
 ```
 
 
@@ -272,6 +280,46 @@ RANGES = {
     'temperature':(-50,70)
 }
 ```
+
+## Final result
+After runnin the bash script, you will get the a directory with the following tree:
+
+EU Data:
+
+```
+final_dir_eudata
+├── crowd_stations_root_dbscan
+├── data
+├── KNMI
+├── luchtmeetnet_csvs
+├── luchtmeetnet_csvs_dbscan
+├── lucht_root_dbscan
+├── metadata
+├── sencom_final_root_dbscan
+└── final_dataset
+   ├── prepared_lcs_bulk
+   └── pre_prepared_datasets_unfiltered
+
+```
+`final_dataset` contains the data that we used in modeling Veli.
+`prepared_lcs_bulk` contains the LCS data without reference station data for unsupervised training.
+`pre_prepared_datasets_unfiltered` contains files with reference stations used for verification purposes.
+
+OOD Data:
+
+```
+final_dir_ood
+├── lcs_data_dbscan
+├── metadata
+├── ref_data_dbscan
+└── final_dataset
+    ├── ood_data_bulk
+    └── prepared_ood_datasets
+
+```
+`final_dataset` contains the data that we used in modeling Veli.
+`ood_data_bulk` contains the LCS data without reference station data for unsupervised training.
+`prepared_ood_datasets` contains files with reference stations used for verification purposes.
 
 
 ## utils
