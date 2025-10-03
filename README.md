@@ -81,7 +81,9 @@ You can install all necessary packages **EXACTLY** following our work using the 
 
 
 
+
 ## 1. Using Python Virtual Environment
+We recommend using approach (a) because it is the easiest and fastest. For the highest gaurantee of reproducability, approach (b) is recommended but unnecessary. (c) is untested but easy as well.
 
 ### a) With `requirements.txt`
 ```bash
@@ -101,8 +103,9 @@ Create and activate the virtual environment + install deps. Also activate the sh
 ```bash
 poetry install
 
-poetry shell
+source $(poetry env info --path)/bin/activate
 ```
+The source file will automatically start the virtual environment Alternatively, you can do `poetry env list --full-path` and activate the environment in there.
 
 ### c) Using Conda
 
@@ -113,7 +116,6 @@ conda activate veli
 
 pip install -r requirements.txt
 ```
-
 ## Preprocessing
 
 To abide by the licensing provided by each data source, we provide the raw data through the figshare link posted above. 
