@@ -371,3 +371,52 @@ All out of distribution data was downloaded from [here](https://history.colife.o
 
 We provide the identical files in our comprehensive dataset with no code to pull them through any API.
 
+# Licenses
+The source code in this repository is under the MIT license. The data itself is **NOT**.
+
+Each data source has a different license. Please make sure you are using the data appropriately as requested by the original provided.
+
+KNMI Data (folder name: /EU_data/KNMI):
+
+The original license is CC BY 4.0
+
+as documented on their webpage: https://www.knmidata.nl/open-data
+
+
+LuchtMeetNet data (folder names: /EU_data/lucht_root and /EU_data/luchtmeetnet_csvs):
+
+The original license is CC BY-ND 4.0
+
+as documented on their webpage: https://www.luchtmeetnet.nl/informatie/download-data/open-data
+
+
+RIVM SamenMeten data (folder name: /EU_data/crowd_stations_root):
+
+The original license is
+
+as documented on their webpage:
+
+
+Sensor.Community data (folder name: /EU_data/sencom_hourly):
+
+The original license is DbCL v1.0
+
+as documented on their webpage: https://sensor.community/nl/
+
+
+Taiwan Ministry of Environment data (folder name: /out_of_distribution_downloaded/downloaded_ref):
+
+The original license is The Open Government Data License, version 1.0
+
+as documented on their webpage: https://data.gov.tw/license
+
+
+PM2.5 Open Data Portal - LASS (folder name: /out_of_distribution_downloaded/downloaded_lcs):
+
+The original license is CC BY-NC-SA 4.0
+
+as documented on their webpage: https://pm25.lass-net.org/
+
+# Acknowledgement
+
+We sincerely thank the Dutch government for supporting this research with the starter grant (startersbeurzen). We also thank the organizations and researchers who provide the open data to enable this research, including the Dutch National Institute for Public Health and the Environment (RIVM), the Dutch Royal Netherlands Meteorological Institute (KNMI), Dr. Ling-Jyh Chen in Taiwan Academia Sinica for the AirBox project, the Taiwan Ministry of Environment, the Sensor.Community platform, and the European Environmental Agency (EEA). We also thank the GGD Amsterdam and RIVM for providing information about how air quality sensor stations work in the Netherlands. We also thank the CREATE Lab at the Robotics Institute at Carnegie Mellon University for the technical support in building the air quality dashboard.
